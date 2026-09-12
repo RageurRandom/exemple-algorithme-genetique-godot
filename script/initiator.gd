@@ -1,9 +1,11 @@
 extends Node
 
-const NB_ZOMBIES = 3
+const NB_ZOMBIES = 10
 const ZOMBIE_SCENE: PackedScene = preload("res://scenes/zombie.tscn")
 
 var _camera: Camera2D
+var _generationLabel: GenerationLabel
+var _genesLabel: GenesMeilleurIndividuLabel
 var algo: AlgoGenetique
 var humains: Array[Human]
 
@@ -13,8 +15,13 @@ var _limits: Rect2
 
 func _ready():
 	_camera = $Camera2D
+	_generationLabel = $UI/HBoxContainer/VBoxContainer/GenerationLabel
+	_genesLabel = $UI/HBoxContainer/GenesMeilleurIndividu
 	algo = $AlgoGenetique
+	
 	assert(_camera != null, "noeud de camera null")
+	assert(_generationLabel != null, "label generation null")
+	assert(_genesLabel != null, "label meilleures genes null")
 	assert(algo != null, "noeud d'algo genetique null")
 	
 	var viewport_size := _camera.get_viewport_rect().size / _camera.zoom
@@ -52,6 +59,10 @@ func _process(_delta: float) -> void:
 func finGeneration():
 	var nouvellePop = algo.finGeneration()
 	instancieHumains(nouvellePop.individus)
+	_generationLabel.changeGeneration()
+	var meilleurPop: Population = algo.getMeilleureAnciennePop()
+	_generationLabel.changeFitnessMax(meilleurPop.fitnessMax)
+	_genesLabel.changeGenes(meilleurPop.meilleurGene)
 
 
 ## applique les nouveaux genes aux humains de la scène

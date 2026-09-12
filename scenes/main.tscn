@@ -3,12 +3,10 @@
 [ext_resource type="Script" uid="uid://ccq3g6iq7sqss" path="res://script/ui/label_vitesse_simu.gd" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://o3x2e23mkekd" path="res://script/initiator.gd" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://c8xsenaq18vhs" path="res://scenes/scroller_vitesse_simulation.gd" id="3_tbgi4"]
+[ext_resource type="Theme" uid="uid://c2vmkj5doffks" path="res://theme/theme.tres" id="3_tefeu"]
 [ext_resource type="Script" uid="uid://bfxwoyts6p2r5" path="res://algo_genetique.gd" id="4_jyhfs"]
-
-[sub_resource type="Theme" id="Theme_jyhfs"]
-Label/colors/font_color = Color(0, 0, 0, 1)
-Label/colors/font_outline_color = Color(0, 0, 0, 1)
-Label/constants/outline_size = 1
+[ext_resource type="Script" uid="uid://cmv2mgg6qxe4w" path="res://script/ui/generation_label.gd" id="5_o6xl0"]
+[ext_resource type="Script" uid="uid://dx4ghe5vyu872" path="res://script/ui/genes_meilleur_individu_label.gd" id="6_o6xl0"]
 
 [node name="Main" type="Node2D" unique_id=922111964]
 script = ExtResource("3_sugp2")
@@ -18,25 +16,50 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = 1154.0
+offset_bottom = 648.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=1992286415]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI" unique_id=1921810170]
 layout_mode = 1
-offset_right = 40.0
-offset_bottom = 43.0
-scale = Vector2(2, 2)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 70.0
+grow_horizontal = 2
+theme = ExtResource("3_tefeu")
+alignment = 1
 
-[node name="VitesseSimulation" type="HSlider" parent="UI/VBoxContainer" unique_id=429584240]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HBoxContainer" unique_id=1992286415]
+layout_mode = 2
+
+[node name="SliderContainer" type="VBoxContainer" parent="UI/HBoxContainer/VBoxContainer" unique_id=1019001973]
+layout_mode = 2
+
+[node name="VitesseSimulation" type="HSlider" parent="UI/HBoxContainer/VBoxContainer/SliderContainer" unique_id=429584240]
 layout_mode = 2
 min_value = 1.0
 value = 1.0
 script = ExtResource("3_tbgi4")
 
-[node name="Label" type="Label" parent="UI/VBoxContainer" unique_id=982273477]
+[node name="VitesseLabel" type="Label" parent="UI/HBoxContainer/VBoxContainer/SliderContainer" unique_id=982273477]
 layout_mode = 2
-theme = SubResource("Theme_jyhfs")
+theme = ExtResource("3_tefeu")
+text = "Vitesse : x1"
 script = ExtResource("3_jyhfs")
+
+[node name="GenerationLabel" type="Label" parent="UI/HBoxContainer/VBoxContainer" unique_id=2037911623]
+layout_mode = 2
+theme = ExtResource("3_tefeu")
+text = "Génération : 1"
+script = ExtResource("5_o6xl0")
+
+[node name="GenesMeilleurIndividu" type="Label" parent="UI/HBoxContainer" unique_id=1254768050]
+layout_mode = 2
+theme = ExtResource("3_tefeu")
+text = "aucun meilleur individu"
+script = ExtResource("6_o6xl0")
 
 [node name="AlgoGenetique" type="Node" parent="." unique_id=267273847]
 script = ExtResource("4_jyhfs")
