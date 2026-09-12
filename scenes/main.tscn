@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://dsefkix7f73a4"]
+
+[ext_resource type="Script" uid="uid://ccq3g6iq7sqss" path="res://script/ui/label_vitesse_simu.gd" id="3_jyhfs"]
+[ext_resource type="Script" uid="uid://o3x2e23mkekd" path="res://script/initiator.gd" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://c8xsenaq18vhs" path="res://scenes/scroller_vitesse_simulation.gd" id="3_tbgi4"]
+[ext_resource type="Script" uid="uid://bfxwoyts6p2r5" path="res://algo_genetique.gd" id="4_jyhfs"]
+
+[sub_resource type="Theme" id="Theme_jyhfs"]
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 1
+
+[node name="Main" type="Node2D" unique_id=922111964]
+script = ExtResource("3_sugp2")
+
+[node name="UI" type="Control" parent="." unique_id=165918953]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=1992286415]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 43.0
+scale = Vector2(2, 2)
+
+[node name="VitesseSimulation" type="HSlider" parent="UI/VBoxContainer" unique_id=429584240]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+script = ExtResource("3_tbgi4")
+
+[node name="Label" type="Label" parent="UI/VBoxContainer" unique_id=982273477]
+layout_mode = 2
+theme = SubResource("Theme_jyhfs")
+script = ExtResource("3_jyhfs")
+
+[node name="AlgoGenetique" type="Node" parent="." unique_id=267273847]
+script = ExtResource("4_jyhfs")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=153942364]
+anchor_mode = 0
+zoom = Vector2(0.45, 0.45)
+
+[node name="border" type="StaticBody2D" parent="Camera2D" unique_id=1553713558]
+position = Vector2(1278, 731)
+scale = Vector2(2.205, 2.205)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Camera2D/border" unique_id=829434335]
+position = Vector2(-575, -324)
+polygon = PackedVector2Array(2, 0, -1, 643, -184, 835, -171, -182, 1368, -164, 1332, 837, -171, 819, -32, 650, 1154, 645, 1154, -4)
+
+[node name="fond" type="ColorRect" parent="." unique_id=1733287211]
+z_index = -1
+custom_minimum_size = Vector2(3000, 1000)
+offset_left = -386.0
+offset_top = -148.0
+offset_right = 3000.0
+offset_bottom = 1628.0
+mouse_filter = 2

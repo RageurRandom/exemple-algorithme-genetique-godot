@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://1nsnxd1siw0q"]
+
+[ext_resource type="Script" uid="uid://v2ovvx4binwf" path="res://script/human.gd" id="1_cwf78"]
+[ext_resource type="Texture2D" uid="uid://lgm1i2nlldso" path="res://imports/human.png" id="1_swaxu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwf78"]
+atlas = ExtResource("1_swaxu")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4otcn"]
+atlas = ExtResource("1_swaxu")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mayv3"]
+atlas = ExtResource("1_swaxu")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_denma"]
+atlas = ExtResource("1_swaxu")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7jhf"]
+atlas = ExtResource("1_swaxu")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0vvy"]
+atlas = ExtResource("1_swaxu")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oxdja"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwf78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4otcn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mayv3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_denma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7jhf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0vvy")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_swaxu"]
+radius = 9.0
+height = 34.0
+
+[node name="Human" type="CharacterBody2D" unique_id=1102108258 groups=["human"]]
+scale = Vector2(2.5, 2.5)
+script = ExtResource("1_cwf78")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=847878547]
+sprite_frames = SubResource("SpriteFrames_oxdja")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=691374435]
+shape = SubResource("CapsuleShape2D_swaxu")

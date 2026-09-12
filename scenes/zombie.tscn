@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://big13up84xiy8"]
+
+[ext_resource type="Script" uid="uid://bjld6djagx2ng" path="res://script/zombie.gd" id="1_4gx57"]
+[ext_resource type="Texture2D" uid="uid://s766a2bilvey" path="res://imports/zombie/1.png" id="1_xepks"]
+[ext_resource type="Texture2D" uid="uid://dq18dhm8dw8p0" path="res://imports/zombie/2.png" id="2_4gx57"]
+[ext_resource type="Texture2D" uid="uid://dtq4e6rufu2wp" path="res://imports/zombie/3.png" id="3_ycv6i"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pjjxt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_xepks")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_4gx57")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ycv6i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7pfmu"]
+radius = 18.0
+height = 96.0
+
+[node name="Zombie" type="CharacterBody2D" unique_id=1480277285 groups=["zombie"]]
+script = ExtResource("1_4gx57")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=68345792]
+position = Vector2(-9, 0)
+sprite_frames = SubResource("SpriteFrames_pjjxt")
+autoplay = "default"
+frame_progress = 0.9232673
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1247271354]
+shape = SubResource("CapsuleShape2D_7pfmu")
