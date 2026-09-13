@@ -15,7 +15,7 @@ var nbGeneration: int
 static func cloner(pop: Population)->Population:
 	var clone: Population = Population.new(pop.nbGeneration)
 	for individu in pop.individus:
-		clone.addIndividu(individu)
+		clone.addIndividu(Genes.cloner(individu))
 	
 	return clone
 

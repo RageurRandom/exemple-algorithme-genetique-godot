@@ -12,7 +12,7 @@ var fitness: int
 var vitesse: float :
 	set(val):
 		vitesse = maxf(0, val)
-const VITESSE_DEFAUT = 50
+const VITESSE_DEFAUT = 10
 
 var taille: float :
 	set(val):
