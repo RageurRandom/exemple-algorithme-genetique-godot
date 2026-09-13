@@ -11,56 +11,6 @@
 [node name="Main" type="Node2D" unique_id=922111964]
 script = ExtResource("3_sugp2")
 
-[node name="UI" type="Control" parent="." unique_id=165918953]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_right = 1154.0
-offset_bottom = 648.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI" unique_id=1921810170]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 70.0
-grow_horizontal = 2
-theme = ExtResource("3_tefeu")
-alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/HBoxContainer" unique_id=1992286415]
-layout_mode = 2
-
-[node name="SliderContainer" type="VBoxContainer" parent="UI/HBoxContainer/VBoxContainer" unique_id=1019001973]
-layout_mode = 2
-
-[node name="VitesseSimulation" type="HSlider" parent="UI/HBoxContainer/VBoxContainer/SliderContainer" unique_id=429584240]
-layout_mode = 2
-min_value = 1.0
-value = 1.0
-script = ExtResource("3_tbgi4")
-
-[node name="VitesseLabel" type="Label" parent="UI/HBoxContainer/VBoxContainer/SliderContainer" unique_id=982273477]
-layout_mode = 2
-theme = ExtResource("3_tefeu")
-text = "Vitesse : x1"
-script = ExtResource("3_jyhfs")
-
-[node name="GenerationLabel" type="Label" parent="UI/HBoxContainer/VBoxContainer" unique_id=2037911623]
-layout_mode = 2
-theme = ExtResource("3_tefeu")
-text = "Génération : 1"
-script = ExtResource("5_o6xl0")
-
-[node name="GenesMeilleurIndividu" type="Label" parent="UI/HBoxContainer" unique_id=1254768050]
-layout_mode = 2
-theme = ExtResource("3_tefeu")
-text = "aucun meilleur individu"
-script = ExtResource("6_o6xl0")
-
 [node name="AlgoGenetique" type="Node" parent="." unique_id=267273847]
 script = ExtResource("4_jyhfs")
 
@@ -76,11 +26,58 @@ scale = Vector2(2.205, 2.205)
 position = Vector2(-575, -324)
 polygon = PackedVector2Array(2, 0, -1, 643, -184, 835, -171, -182, 1368, -164, 1332, 837, -171, 819, -32, 650, 1154, 645, 1154, -4)
 
+[node name="UI" type="MarginContainer" parent="Camera2D" unique_id=888200873]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = 3002.0
+offset_bottom = 1000.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/UI" unique_id=1921810170]
+layout_mode = 2
+theme = ExtResource("3_tefeu")
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/UI/HBoxContainer" unique_id=1992286415]
+layout_mode = 2
+
+[node name="SliderContainer" type="VBoxContainer" parent="Camera2D/UI/HBoxContainer/VBoxContainer" unique_id=1019001973]
+layout_mode = 2
+
+[node name="VitesseSimulation" type="HSlider" parent="Camera2D/UI/HBoxContainer/VBoxContainer/SliderContainer" unique_id=429584240]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+script = ExtResource("3_tbgi4")
+
+[node name="VitesseLabel" type="Label" parent="Camera2D/UI/HBoxContainer/VBoxContainer/SliderContainer" unique_id=982273477]
+layout_mode = 2
+theme = ExtResource("3_tefeu")
+text = "Vitesse : x1"
+script = ExtResource("3_jyhfs")
+
+[node name="GenerationLabel" type="Label" parent="Camera2D/UI/HBoxContainer/VBoxContainer" unique_id=2037911623]
+layout_mode = 2
+theme = ExtResource("3_tefeu")
+text = "Génération : 1"
+script = ExtResource("5_o6xl0")
+
+[node name="GenesMeilleurIndividu" type="Label" parent="Camera2D/UI/HBoxContainer" unique_id=1254768050]
+layout_mode = 2
+theme = ExtResource("3_tefeu")
+text = "aucun meilleur individu"
+script = ExtResource("6_o6xl0")
+
 [node name="fond" type="ColorRect" parent="." unique_id=1733287211]
 z_index = -1
-custom_minimum_size = Vector2(3000, 1000)
-offset_left = -386.0
-offset_top = -148.0
-offset_right = 3000.0
-offset_bottom = 1628.0
+custom_minimum_size = Vector2(10000, 10000)
+offset_left = -3498.0
+offset_top = -4500.0
+offset_right = 6502.0
+offset_bottom = 5500.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2

@@ -9,7 +9,9 @@ signal mort
 var fitness: int
 
 #region caracteristiques
-var vitesse: float
+var vitesse: float :
+	set(val):
+		vitesse = maxf(0, val)
 const VITESSE_DEFAUT = 50
 
 var taille: float :
@@ -20,6 +22,10 @@ const TAILLE_DEFAUT = 1
 var champsDeVision: float
 const CHAMPS_VISION_DEFAUT = 150
 #endregion
+
+static func cloner(genes: Genes)->Genes:
+	return Genes.new(genes.vitesse, genes.taille, genes.champsDeVision)
+
 
 func _init(_vitesse: float = VITESSE_DEFAUT,
 		_taille: float  = TAILLE_DEFAUT,

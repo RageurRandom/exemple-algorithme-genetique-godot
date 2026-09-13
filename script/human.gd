@@ -7,6 +7,8 @@ const HUMAN_SCENE = preload("res://scenes/human.tscn")
 ## L'IA de l'humain (actuellement une seule est "fonctionnelle")
 var strategy: AStrategy
 
+var isDead: bool = false # patch de merde
+
 var genes: Genes :
 	set(val): # réajuste automatiquement la taille
 		genes = val
@@ -41,6 +43,7 @@ func _physics_process(_delta: float) -> void:
 
 ## Quand un humain est touché par un zombie (ici je le supprime)
 func die():
-	genes.mort.emit()
-	print("mort")
-	queue_free()
+	if(!isDead):
+		isDead = true
+		genes.mort.emit()
+		queue_free()

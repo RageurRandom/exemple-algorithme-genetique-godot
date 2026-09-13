@@ -10,9 +10,9 @@ class_name AlgoGenetique extends Node
 const NB_POPULATION = 10
 
 # Probabilités de mutation
-const PROBA_MUTATION_VITESSE = 0.25
-const PROBA_MUTATION_CHAMPS_VISION = 0.25
-const PROBA_MUTATION_TAILLE = 0.15
+const PROBA_MUTATION_VITESSE = 0.5
+const PROBA_MUTATION_CHAMPS_VISION = 0.5
+const PROBA_MUTATION_TAILLE = 0.5
 
 # Valeurs de mutation d'une caractéristique.
 # Va être soit positif soit négatif.
@@ -30,11 +30,11 @@ var populationActuelle: Population
 ## Ne devrait être utilisé qu'une fois. [br]
 ## [b] Si vous voulez modifier la 1ère génération c'est ici.
 func intialise()-> Array[Genes]:
-	populationActuelle = Population.new()
+	populationActuelle = Population.new(1)
 	
 	for i in range(NB_POPULATION):
 		var nouvelIndividu = Genes.new()
-		mutation(nouvelIndividu)
+		nouvelIndividu = mutation(nouvelIndividu)
 		populationActuelle.addIndividu(nouvelIndividu)
 	
 	return populationActuelle.individus
@@ -42,7 +42,7 @@ func intialise()-> Array[Genes]:
 
 ## Mute des gènes de façon aléatoire. Chaque caractéristique a une chance de changer. [br]
 ## Voir les constantes plus haut
-func mutation(genes: Genes)->void:
+func mutation(genes: Genes)->Genes:
 	if randf() < PROBA_MUTATION_VITESSE :
 		genes.vitesse += _getValMutation(CHANGEMEN_VITESSE)
 	
@@ -51,13 +51,13 @@ func mutation(genes: Genes)->void:
 	
 	if randf() < PROBA_MUTATION_TAILLE :
 		genes.taille += _getValMutation(CHANGEMENT_TAILLE)
+		
+	return genes
 
 
 ## Renvoie soit le paramètre, soit son opposé (une chance sur 2).
 func _getValMutation(changement:float)->float:
-	if randi() % 2 == 0:
-		return changement
-	return - changement
+	return randf_range(-changement, changement)
 
 ## Renvoie la population avec le meilleur fitness dans [member anciennesPopulations]
 func getMeilleureAnciennePop()->Population:
@@ -79,20 +79,21 @@ func nouvelleGeneration()-> Population:
 		
 		# Si la population a fait moins bien que les ancienne, elle ne sert à rien
 		# (Les mauvaises mutations arrivent)
-		if populationActuelle.fitnessMax > meilleureAnciennePop.fitnessMax:
-			return meilleureAnciennePop
+		if populationActuelle.fitnessMax < meilleureAnciennePop.fitnessMax:
+			return Population.cloner(meilleureAnciennePop)
 	
 	var meilleurIndividu: Genes = populationActuelle.meilleurGene
-	var nouvellePop: Population = Population.new()
+	var nouvellePop: Population = Population.new(populationActuelle.nbGeneration + 1)
 	
 	# Le meilleur individu reste tel quel dans la nouvelle population
-	nouvellePop.addIndividu(meilleurIndividu)
+	# Je récréé un gene pour éviter de devoir réinitialiser le fitness
+	nouvellePop.addIndividu(Genes.cloner(meilleurIndividu))
 	
 	for individu in populationActuelle.individus:
 		if individu != meilleurIndividu:
 			# chaque individu se reproduit avec le meilleur puis l'enfant mute
 			var nouvelIndividu: Genes = Genes.crossover(meilleurIndividu, individu)
-			mutation(nouvelIndividu)
+			nouvelIndividu = mutation(nouvelIndividu)
 			nouvellePop.addIndividu(nouvelIndividu)
 	
 	return nouvellePop

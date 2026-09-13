@@ -7,16 +7,17 @@ var _camera: Camera2D
 var _generationLabel: GenerationLabel
 var _genesLabel: GenesMeilleurIndividuLabel
 var algo: AlgoGenetique
-var humains: Array[Human]
+var zombies: Array[Zombie]
 
 ## limites de la caméra
 var _limits: Rect2
 
 
 func _ready():
+	get_tree().paused = true
 	_camera = $Camera2D
-	_generationLabel = $UI/HBoxContainer/VBoxContainer/GenerationLabel
-	_genesLabel = $UI/HBoxContainer/GenesMeilleurIndividu
+	_generationLabel = $Camera2D/UI/HBoxContainer/VBoxContainer/GenerationLabel
+	_genesLabel = $Camera2D/UI/HBoxContainer/GenesMeilleurIndividu
 	algo = $AlgoGenetique
 	
 	assert(_camera != null, "noeud de camera null")
@@ -34,9 +35,11 @@ func _ready():
 		var zombie: Zombie = ZOMBIE_SCENE.instantiate()
 		zombie.position = _random_position()
 		add_child(zombie)
+		zombies.append(zombie)
 		
 	var premierePop:Array[Genes] = algo.intialise()
 	instancieHumains(premierePop)
+	get_tree().paused = false
 
 
 ## Renvoie une position aléatoire dans les limites de la camera
@@ -57,8 +60,11 @@ func _process(_delta: float) -> void:
 
 
 func finGeneration():
-	var nouvellePop = algo.finGeneration()
+	var nouvellePop: Population = algo.finGeneration()
 	instancieHumains(nouvellePop.individus)
+	for zombie in zombies:
+		zombie.position = _random_position()
+		
 	_generationLabel.changeGeneration()
 	var meilleurPop: Population = algo.getMeilleureAnciennePop()
 	_generationLabel.changeFitnessMax(meilleurPop.fitnessMax)

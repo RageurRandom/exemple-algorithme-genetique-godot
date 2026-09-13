@@ -11,9 +11,19 @@ var meilleurGene: Genes
 ## 1 si c'est la 1ère génération, 2 si c'est la 2ème...
 var nbGeneration: int
 
-func _init():
+
+static func cloner(pop: Population)->Population:
+	var clone: Population = Population.new(pop.nbGeneration)
+	for individu in pop.individus:
+		clone.addIndividu(individu)
+	
+	return clone
+
+
+func _init(_nbGeneration: int):
 	individus = []
 	fitnessMax = 0
+	self.nbGeneration = _nbGeneration
 
 func addIndividu(genes: Genes):
 	individus.append(genes)
@@ -23,4 +33,5 @@ func addIndividu(genes: Genes):
 		func ():
 			if genes.fitness > fitnessMax:
 				fitnessMax = genes.fitness
-				meilleurGene = genes)
+				meilleurGene = genes,
+		CONNECT_ONE_SHOT)
