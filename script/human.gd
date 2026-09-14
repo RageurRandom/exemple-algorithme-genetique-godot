@@ -8,6 +8,7 @@ const HUMAN_SCENE = preload("res://scenes/human.tscn")
 var strategy: AStrategy
 
 var isDead: bool = false # patch de merde
+var started: bool = false # second patch de merde
 
 var genes: Genes :
 	set(val): # réajuste automatiquement la taille
@@ -39,7 +40,8 @@ func _physics_process(_delta: float) -> void:
 	velocity = strategy.getTargetVector(self, zombies) * genes.vitesse
 	move_and_slide()
 	
-	genes.fitness += 1
+	if started:
+		genes.fitness += 1
 
 ## Quand un humain est touché par un zombie (ici je le supprime)
 func die():

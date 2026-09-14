@@ -22,7 +22,7 @@ static func cloner(pop: Population)->Population:
 
 func _init(_nbGeneration: int):
 	individus = []
-	fitnessMax = 0
+	fitnessMax = -100
 	self.nbGeneration = _nbGeneration
 
 func addIndividu(genes: Genes):

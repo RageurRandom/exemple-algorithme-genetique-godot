@@ -9,6 +9,9 @@ class_name AlgoGenetique extends Node
 ## Nombre d'humains dans la simulation par génération
 const NB_POPULATION = 10
 
+## Jamais fait un patch aussi foireux
+const FITNESS_INITIALE = -50
+
 # Probabilités de mutation
 const PROBA_MUTATION_VITESSE = 0.5
 const PROBA_MUTATION_CHAMPS_VISION = 0.5
@@ -34,6 +37,7 @@ func intialise()-> Array[Genes]:
 	
 	for i in range(NB_POPULATION):
 		var nouvelIndividu = Genes.new()
+		nouvelIndividu.fitness = FITNESS_INITIALE
 		nouvelIndividu = mutation(nouvelIndividu)
 		populationActuelle.addIndividu(nouvelIndividu)
 	
@@ -57,7 +61,9 @@ func mutation(genes: Genes)->Genes:
 
 ## Renvoie soit le paramètre, soit son opposé (une chance sur 2).
 func _getValMutation(changement:float)->float:
-	return randf_range(-changement, changement)
+	if randi() % 2 == 0 :
+		return -changement
+	return changement
 
 ## Renvoie la population avec le meilleur fitness dans [member anciennesPopulations]
 func getMeilleureAnciennePop()->Population:
